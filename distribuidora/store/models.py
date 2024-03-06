@@ -8,6 +8,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta:
+        verbose_name = 'categories'
+    
 # Costumers
 class Customer(models.Model):
     first_name = models.CharField(max_length=63)
@@ -18,6 +21,9 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
+    
+    class Meta:
+        verbose_name = 'customers'
 
 # All of our products
 class Product(models.Model):
@@ -31,6 +37,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name + " " + str(self.price)
     
+    class Meta:
+        verbose_name = 'products'
+    
 # Customer Orders
 class Order(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -43,3 +52,7 @@ class Order(models.Model):
     
     def __str__(self):
         return self.product.name + " " + self.customer.first_name + " " + str(self.date)
+    
+    class Meta:
+        verbose_name = 'orders'
+        
