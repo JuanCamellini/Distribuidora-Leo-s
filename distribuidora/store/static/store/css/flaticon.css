@@ -42,3 +42,5 @@
 .flaticon-free-delivery:before { content: "\f103"; }
 .flaticon-heart:before { content: "\f104"; }
 .flaticon-visibility:before { content: "\f105"; }
+/* quiero que el icono sea una imagen alojada  en la carpeta de assets*/
+.logo:before { content: url("{% static 'store/images/logo.png' %}"); }

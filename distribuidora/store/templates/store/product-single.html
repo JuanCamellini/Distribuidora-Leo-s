@@ -8,7 +8,7 @@
         <div class="row no-gutters slider-text align-items-end justify-content-center">
           <div class="col-md-9 ftco-animate mb-5 text-center">
           	<p class="breadcrumbs mb-0"><span class="mr-2"><a href="{% url 'home' %}">Inicio <i class="fa fa-chevron-right"></i></a></span> <span><a href="product.html">Products <i class="fa fa-chevron-right"></i></a></span> <span>Products Single <i class="fa fa-chevron-right"></i></span></p>
-            <h2 class="mb-0 bread">Detalle Producto</h2>
+            <h2 class="mb-0 bread">Detalle de Producto</h2>
           </div>
         </div>
       </div>
@@ -61,7 +61,8 @@
 	          		<p style="color: #000;">En stock</p>
 	          	</div>
           	</div>
-          	<p><a href="{% url 'carrito' %}" class="btn btn-primary py-3 px-5 mr-2">Añadir al carrito de compras</a><a href="{% url 'carrito' %}" class="btn btn-primary py-3 px-5">Compre Ahora</a></p>
+			<button class="btn btn-primary " type="button" id="agregar-carrito" value="{{ product.id }}">Añadir al carrito</button><br><br>
+          	<p><!-- <a href="{% url 'carrito' %}" class="btn btn-primary py-3 px-5 mr-2">Añadir al carrito de compras</a> --><a href="https://wa.me/541149743546" target="_blank" class="btn btn-primary py-3 px-5">Compre Ahora</a></p>
     			</div>
     		</div>
 
@@ -228,4 +229,27 @@
         </div>
     	</div>
     </section>
+<script>
+	$(document).on('click', '#agregar-carrito', function(e){
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '{% url 'agregar-carrito' %}',
+			data: {
+				product_id: $('#agregar-carrito').val(),
+				csrfmiddlewaretoken: '{{ csrf_token }}',
+				action: 'post'
+			},
+			succes: function(json){
+				console.log(json);
+			},
+
+			error: function(xhr, errmsg, err){
+
+			}
+		});
+
+
+	})
+</script>
 {% endblock %}
