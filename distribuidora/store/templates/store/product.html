@@ -15,46 +15,62 @@
       </div>
     </section>
 
-    <section class="ftco-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-9">
-						<!-- <div class="row mb-4">
-							<div class="col-md-12 d-flex justify-content-between align-items-center">
-								<h4 class="product-select">Select Types of Products</h4>
-								<select class="selectpicker" multiple>
-				          <option>Brandy</option>
-				          <option>Gin</option>
-				          <option>Rum</option>
-				          <option>Tequila</option>
-				          <option>Vodka</option>
-				          <option>Whiskey</option>
-				        </select>
-							</div>
+	<section class="ftco-intro" style="padding: 0px; border: 0px; margin:0px; width: 100%;">
+    	<div class="container" style="padding: 0px; margin:0px; align-items: center;">
+    		<div class="row no-gutters" style="padding: 5px; margin:0px; align-items: center;">
+    			<div class="col-md-4 d-flex" style="padding: 9px; margin-right:25%; margin-left:10%; align-items: center;">
+					{% for category in categories %}
+    				<div class="intro d-lg-flex w-100 ftco-animate" style="padding: 15px; align-items: center; text-align: center;">
+    					<div class="text">
+    						<h2><a href="{% url 'categoria' category %}" style="color:rgb(255, 255, 255)">{{category}}</a></h2>
+    					</div>
+    				</div>
+					{% endfor %}
+    			</div>
+    		</div>
+    	</div>
+    </section>
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="row mb-4">
+						<div class="col-md-12 d-flex justify-content-between align-items-center">
+							<h4 class="product-select">Select Types of Products</h4>
+							<select class="selectpicker" multiple>
+					  <option>Brandy</option>
+					  <option>Gin</option>
+					  <option>Rum</option>
+					  <option>Tequila</option>
+					  <option>Vodka</option>
+					  <option>Whiskey</option>
+					</select>
 						</div>
-						<div class="row"> -->
-							
-							{% for product in products %}
-							<div class="col-md-4 d-flex" style=""></div>
-								<div class="product ftco-animate">
-									<div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ product.image.url }});">
-										<div class="desc">
-											<p class="meta-prod d-flex">
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-											</p>
-										</div>
-									</div>
-									<div class="text text-center">
-										<span class="sale">{{product.sale}}</span>
-										<span class="category">{{product.category}}</span>
-										<h2>{{product.name}}</h2>
-										<p class="mb-0"><span class="price price-sale">$69.00</span> <span class="price">${{product.price}}</span></p>
+					</div>
+					<div class="row">
+						
+						{% for product in products %}
+						<div class="col-md-4 d-flex">
+							<div class="product ftco-animate">
+								<div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ product.image.url }});">
+									<div class="desc">
+										<p class="meta-prod d-flex">
+<!-- 												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+											<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+-->												<a href="{% url 'product' product.id %}" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+										</p>
 									</div>
 								</div>
+								<div class="text text-center">
+									<span class="sale">{{product.sale}}</span>
+									<span class="category">{{product.category}}</span>
+									<h2>{{product.name}}</h2>
+									<p class="mb-0"><span class="price price-sale">$69.00</span> <span class="price">${{product.price}}</span></p>
+								</div>
 							</div>
-					</div><!-- arreglar divs -->
-			</div>			{% endfor %}
+						</div>
+						{% endfor %}
+					</section>			
 		</section>
 {% endblock %}

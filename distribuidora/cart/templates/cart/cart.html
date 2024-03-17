@@ -8,17 +8,16 @@
         <div class="row no-gutters slider-text align-items-end justify-content-center">
           <div class="col-md-9 ftco-animate mb-5 text-center">
           	<p class="breadcrumbs mb-0"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="fa fa-chevron-right"></i></a></span> <span>Cart <i class="fa fa-chevron-right"></i></span></p>
-            <h2 class="mb-0 bread">My Cart</h2>
+            <h2 class="mb-0 bread">Mi Carrito</h2>
           </div>
         </div>
       </div>
     </section>
-
     <section class="ftco-section">
     	<div class="container">
     		<div class="row">
-    			<div class="table-wrap">
-						<table class="table">
+    			<div class="table-wrap" style="margin-bottom: 0px;">
+						<table class="table" style="">
 						  <thead class="thead-primary">
 						    <tr>
 						    	<th>&nbsp;</th>
@@ -31,6 +30,7 @@
 						    </tr>
 						  </thead>
 						  <tbody>
+							{% for product in cart_products %}
 						    <tr class="alert" role="alert">
 						    	<td>
 						    		<label class="checkbox-wrap checkbox-primary">
@@ -39,150 +39,42 @@
 										</label>
 						    	</td>
 						    	<td>
-						    		<div class="img" style="background-image: url(images/prod-1.jpg);"></div>
+						    		<div class="img" style="background-image: url({{ product.image.url }});"></div>
 						    	</td>
 						      <td>
 						      	<div class="email">
-						      		<span>Jim Beam Kentucky Straight</span>
-						      		<span>Fugiat voluptates quasi nemo, ipsa perferendis</span>
+						      		<span>{{product.name}}</span>
+						      		<span>{{product.description}}</span>
 						      	</div>
 						      </td>
-						      <td>$44.99</td>
+						      <td>${{product.price}}</td>
 						      <td class="quantity">
 					        	<div class="input-group">
-				             	<input type="text" name="quantity" class="quantity form-control input-number" value="2" min="1" max="100">
+				             	<input type="number" name="quantity" class="quantity form-control input-number" id="input{{product.id}}"
+								
+								{% for key, value in quantity.items %}
+									{% if key == product.id|slugify %}
+									value="{{ value }}"
+									{% endif %}
+								{% endfor %}
+								
+								 min="1" max="100">
 				          	</div>
 				          </td>
-				          <td>$89.98</td>
-						      <td>
-						      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</button>
+				          <td>${{product.price}}</td>
+						    <td>
+						      	<button type="button" class="close delete-product" data-dismiss="alert" aria-label="Close" data-index="{{product.id}}"> 
+				            		<span aria-hidden="true"><i class="fa fa-close"></i></span>
+				          		</button>
+        						<button type="button" data-index="{{product.id}}" class="btn btn-primary py-3 px-4 update-cart">Actualizar Carrito</button>
 				        	</td>
 						    </tr>
+							{% endfor %}						    
 
-						    <tr class="alert" role="alert">
-						    	<td>
-						    		<label class="checkbox-wrap checkbox-primary">
-										  <input type="checkbox">
-										  <span class="checkmark"></span>
-										</label>
-						    	</td>
-						    	<td>
-						    		<div class="img" style="background-image: url(images/prod-2.jpg);"></div>
-						    	</td>
-						      <td>
-						      	<div class="email">
-						      		<span>Jim Beam Kentucky Straight</span>
-						      		<span>Fugiat voluptates quasi nemo, ipsa perferendis</span>
-						      	</div>
-						      </td>
-						      <td>$30.99</td>
-						      <td class="quantity">
-					        	<div class="input-group">
-				             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-				          	</div>
-				          </td>
-				          <td>$30.99</td>
-						      <td>
-						      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</button>
-				        	</td>
-						    </tr>
-
-						    <tr class="alert" role="alert">
-						    	<td>
-						    		<label class="checkbox-wrap checkbox-primary">
-										  <input type="checkbox">
-										  <span class="checkmark"></span>
-										</label>
-						    	</td>
-						    	<td>
-						    		<div class="img" style="background-image: url(images/prod-3.jpg);"></div>
-						    	</td>
-						      <td>
-						      	<div class="email">
-						      		<span>Jim Beam Kentucky Straight</span>
-						      		<span>Fugiat voluptates quasi nemo, ipsa perferendis</span>
-						      	</div>
-						      </td>
-						      <td>$35.50</td>
-						      <td class="quantity">
-					        	<div class="input-group">
-				             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-				          	</div>
-				          </td>
-				          <td>$35.50</td>
-						      <td>
-						      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</button>
-				        	</td>
-						    </tr>
-
-						    <tr class="alert" role="alert">
-						    	<td>
-						    		<label class="checkbox-wrap checkbox-primary">
-										  <input type="checkbox">
-										  <span class="checkmark"></span>
-										</label>
-						    	</td>
-						    	<td>
-						    		<div class="img" style="background-image: url(images/prod-4.jpg);"></div>
-						    	</td>
-						      <td>
-						      	<div class="email">
-						      		<span>Jim Beam Kentucky Straight</span>
-						      		<span>Fugiat voluptates quasi nemo, ipsa perferendis</span>
-						      	</div>
-						      </td>
-						      <td>$76.99</td>
-						      <td class="quantity">
-					        	<div class="input-group">
-				             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-				          	</div>
-				          </td>
-				          <td>$76.99</td>
-						      <td>
-						      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</button>
-				        	</td>
-						    </tr>
-
-						    <tr class="alert" role="alert">
-						    	<td class="border-bottom-0">
-						    		<label class="checkbox-wrap checkbox-primary">
-										  <input type="checkbox">
-										  <span class="checkmark"></span>
-										</label>
-						    	</td>
-						    	<td class="border-bottom-0">
-						    		<div class="img" style="background-image: url(images/prod-5.jpg);"></div>
-						    	</td>
-						      <td class="border-bottom-0">
-						      	<div class="email">
-						      		<span>Jim Beam Kentucky Straight</span>
-						      		<span>Fugiat voluptates quasi nemo, ipsa perferendis</span>
-						      	</div>
-						      </td>
-						      <td class="border-bottom-0">$40.00</td>
-						      <td class="quantity border-bottom-0">
-					        	<div class="input-group">
-				             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-				          	</div>
-				          </td>
-				          <td class="border-bottom-0">$40.00</td>
-						      <td class="border-bottom-0">
-						      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</button>
-				        	</td>
-						    </tr>
 						  </tbody>
 						</table>
 					</div>
+
     		</div>
     		<div class="row justify-content-end">
     			<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
@@ -190,20 +82,20 @@
     					<h3>Cart Totals</h3>
     					<p class="d-flex">
     						<span>Subtotal</span>
-    						<span>$20.60</span>
+    						<span>${{totals}}</span>
     					</p>
-    					<p class="d-flex">
+    					<!-- <p class="d-flex">
     						<span>Delivery</span>
     						<span>$0.00</span>
-    					</p>
+    					</p> -->
     					<p class="d-flex">
     						<span>Discount</span>
-    						<span>$3.00</span>
+    						<span>$0.00</span>
     					</p>
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>$17.60</span>
+    						<span>${{ totals }}</span>
     					</p>
     				</div>
     				<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
@@ -211,4 +103,67 @@
     		</div>
     	</div>
     </section>
+
+<script>
+// update cart
+	$(document).on('click', '.update-cart', function(e){
+		e.preventDefault();
+		//grab product id
+		var productId = $(this).data('index');
+
+		var productQuantity = $('#input'+productId).val();
+//		$('#product-quantity').text(quantity);
+
+		$.ajax({
+			type: 'POST',
+			url: '{% url "cart_update" %}',
+			data: {
+				product_id: productId,
+				product_quantity: productQuantity,
+				csrfmiddlewaretoken: '{{ csrf_token }}',
+				action: 'post'
+			},
+			success: function(json){
+				console.log('valor del input:', product_quantity)
+				document.getElementById('cart_quantity').textContent = json.quantity
+				location.reload();
+			},
+
+			error: function(xhr, errmsg, err){
+
+			}
+		});
+
+
+	});
+// delete item from the cart
+$(document).on('click', '.delete-product', function(e){
+		e.preventDefault();
+		//grab product id
+		var productId = $(this).data('index');
+
+		//var productQuantity = $('#input'+productId).val();
+
+		$.ajax({
+			type: 'POST',
+			url: '{% url "cart_delete" %}',
+			data: {
+				product_id: productId,
+				csrfmiddlewaretoken: '{{ csrf_token }}',
+				action: 'post'
+			},
+			success: function(json){
+				location.reload();
+			},
+
+			error: function(xhr, errmsg, err){
+
+			}
+		});
+
+
+	})
+
+</script>
+
 {% endblock %}

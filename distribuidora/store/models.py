@@ -9,7 +9,7 @@ class Category(models.Model):
         return self.name
     
     class Meta:
-        verbose_name = 'categories'
+        verbose_name = 'categorie'
     
 # Costumers
 class Customer(models.Model):
@@ -23,7 +23,7 @@ class Customer(models.Model):
         return self.first_name + " " + self.last_name
     
     class Meta:
-        verbose_name = 'customers'
+        verbose_name = 'customer'
 
 # All of our products
 class Product(models.Model):
@@ -38,7 +38,7 @@ class Product(models.Model):
         return self.name + " " + str(self.price)
     
     class Meta:
-        verbose_name = 'products'
+        verbose_name = 'product'
     
 # Customer Orders
 class Order(models.Model):
@@ -54,5 +54,5 @@ class Order(models.Model):
         return self.product.name + " " + self.customer.first_name + " " + str(self.date)
     
     class Meta:
-        verbose_name = 'orders'
+        verbose_name = 'order'
         
