@@ -9,23 +9,28 @@
         <div class="row no-gutters slider-text align-items-end justify-content-center">
           <div class="col-md-9 ftco-animate mb-5 text-center">
           	<p class="breadcrumbs mb-0"><span class="mr-2"><a href="{% url 'home' %}">Home <i class="fa fa-chevron-right"></i></a></span> <span>Products <i class="fa fa-chevron-right"></i></span></p>
-            <h2 class="mb-0 bread">Products</h2>
+            <h2 class="mb-0 bread">Todos los Productos</h2>
           </div>
         </div>
       </div>
     </section>
 
-	<section class="ftco-intro" style="padding: 0px; border: 0px; margin:0px; width: 100%;">
+	<section class="ftco-intro" style="padding: auto; border: auto; margin:auto; width: 100%;">
     	<div class="container" style="padding: 0px; margin:0px; align-items: center;">
-    		<div class="row no-gutters" style="padding: 5px; margin:0px; align-items: center;">
-    			<div class="col-md-4 d-flex" style="padding: 9px; margin-right:25%; margin-left:10%; align-items: center;">
+    		<div class="row no-gutters" style="padding: auto; margin:auto; align-items: center;">
+    			<div class="col-md-2 d-lg-inline-flex" style="padding: auto; margin-right:auto; margin-left:auto%; align-items: center; text-align: center; display: inline-block;">
 					{% for category in categories %}
-    				<div class="intro d-lg-flex w-100 ftco-animate" style="padding: 15px; align-items: center; text-align: center;">
+    				<div class="intro d-lg-flex w-100 ftco-animate" style="padding: auto; align-items: center; text-align: center; display: inline-block;">
     					<div class="text">
-    						<h2><a href="{% url 'categoria' category %}" style="color:rgb(255, 255, 255)">{{category}}</a></h2>
+    						<h6><a href="{% url 'categoria' category %}" style="color:rgb(255, 255, 255); text-align: center;">{{category}}</a></h6>
     					</div>
     				</div>
 					{% endfor %}
+					<div class="intro d-lg-flex w-100 ftco-animate" style="padding: auto; align-items: center; text-align: center; display: inline-block;">
+    					<div class="text">
+    						<h6><a href="{% url 'cart' %}" style="color:rgb(255, 255, 255); text-align: center;">Aguas</a></h6>
+    					</div>
+    				</div>
     			</div>
     		</div>
     	</div>
@@ -37,20 +42,12 @@
 				<div class="col-md-9">
 					<div class="row mb-4">
 						<div class="col-md-12 d-flex justify-content-between align-items-center">
-							<h4 class="product-select">Select Types of Products</h4>
-							<select class="selectpicker" multiple>
-					  <option>Brandy</option>
-					  <option>Gin</option>
-					  <option>Rum</option>
-					  <option>Tequila</option>
-					  <option>Vodka</option>
-					  <option>Whiskey</option>
-					</select>
+							<h4 class="product-select">Lista de Productos</h4>
 						</div>
 					</div>
 					<div class="row">
 						
-						{% for product in products %}
+						{% for product in paginator %}
 						<div class="col-md-4 d-flex">
 							<div class="product ftco-animate">
 								<div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ product.image.url }});">
@@ -69,8 +66,32 @@
 									<p class="mb-0"><span class="price price-sale">$69.00</span> <span class="price">${{product.price}}</span></p>
 								</div>
 							</div>
+							
 						</div>
 						{% endfor %}
+					</div>
+					<div class="topbar-filter" style="display:block">
+						<label>Productos por pagina:</label>
+						<select>
+							<option value="range">12 Productos</option>
+						</select>
+						<div class="pagination2">
+							{% if paginator.has_previous %}
+							<a class="" style="float: left;" href="?page=1">&laquo; primera  </a><a>&shy; &amp;</a>
+							<a href="?page= {{ paginator.previous_page_number }}">anterior &raquo;</a>
+							{% endif %}
+							
+							<span class="">
+								Page {{ paginator.number }} of {{ paginator.paginator.num_pages }} 
+							</span>
+	
+							{% if paginator.has_next %}
+							<a href="?page= {{paginator.next_page_number }}">siguiente </a><a>&amp;</a>
+							<a href="?page= {{paginator.paginator.num_pages }}">ultimo &raquo;</a>
+							{% endif %}
+	
+						</div>
+					</div>
 					</section>			
 		</section>
 {% endblock %}

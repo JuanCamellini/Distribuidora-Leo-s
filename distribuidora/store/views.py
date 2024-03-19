@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect
 from .models import Product, Category
 from django.contrib import messages
 from django.db.models import Q 
+from django.views.generic import ListView
+from django.core.paginator import Paginator
 
 def home(request):
-    return render(request, 'store/index.html', {})
+    products = Product.objects.all()
+    return render(request, 'store/index.html', {'products':products, 'title':'Home'})
 
 def catalogo(request):
     products = Product.objects.all
@@ -22,10 +25,25 @@ def category(request, foo):
         messages.success(request, "La categoria no existe")
         return redirect('home')
 
+class CategoriaResumen(ListView):
+    model = Category
+    template_name = 'store/product.html'
+    paginate_by = 12
+    context_object_name = 'categories'
+    is_paginated = True
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = Product.objects.all()
+        context['categories'] = Category.objects.all()
+        return context
 def categoria_resumen(request):
     categories = Category.objects.all()
-    products = Product.objects.all
-    return render(request, 'store/product.html', {'categories': categories, 'products':products})
+    products = Product.objects.all()
+    p = Paginator(products, 12)
+    page = request.GET.get('page')
+    paginator = p.get_page(page)
+    return render(request, 'store/product.html', {'categories': categories, 'products':products, 'paginator':paginator})
 
 def search(request):
     if request.method == 'POST':
@@ -40,7 +58,9 @@ def search(request):
 
 def productSingle(request, pk):
     product = Product.objects.get(id=pk)
-    return render(request, 'store/product-single.html', {'product':product})
+    category = product.category
+    related = Product.objects.filter(category=category).exclude(id=pk)[:3]
+    return render(request, 'store/product-single.html', {'product':product, 'related':related})
 
 def about(request):
     return render(request, 'store/about.html', {})

@@ -57,3 +57,8 @@ def cart_delete(request):
         response = JsonResponse({'product_id': product_id})
         return response
     return render(request, 'cart/cart_delete.html')
+
+def checkout(request):
+    cart = Cart(request)
+    totals = cart.get_total()
+    return render(request, 'cart/checkout.html', {'totals': totals})

@@ -441,6 +441,11 @@ html {
     flex: 0 0 auto;
     width: auto;
     max-width: none; }
+  .col-md-0 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 4.161616%;
+    flex: 0 0 4.161616%;
+    max-width: 4.161616%; }
   .col-md-1 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 8.33333%;

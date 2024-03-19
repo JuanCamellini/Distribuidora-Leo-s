@@ -68,14 +68,33 @@
 	          		<p style="color: #000;">En stock</p>
 	          	</div>
           	</div>
-			<button class="btn btn-primary " type="button" id="agregar-carrito" value="{{ product.id }}">Añadir al carrito</button><br><br>
-          	<p><!-- <a href="{% url 'carrito' %}" class="btn btn-primary py-3 px-5 mr-2">Añadir al carrito de compras</a> --><a href="https://wa.me/541149743546" target="_blank" class="btn btn-primary py-3 px-5">Compre Ahora</a></p>
+			<button class="btn btn-primary" type="button" id="agregar-carrito" value="{{ product.id }}">Añadir al carrito</button><br><br>
+          	<p><a href="https://wa.me/541149743546" target="_blank" class="btn btn-primary py-2 px-4">Compre Ahora</a></p>
+			<br><br>
     			</div>
     		</div>
 		</div>
-
-
-
+			{% for product in related %}
+							<div class="col-md-4 d-flex">
+								<div class="product ftco-animate">
+									<div class="img d-flex align-items-center justify-content-center" style="background-image: url({{ product.image.url }});">
+										<div class="desc">
+											<p class="meta-prod d-flex">
+<!-- 												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+												<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+ -->												<a href="{% url 'product' product.id %}" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+											</p>
+										</div>
+									</div>
+									<div class="text text-center">
+										<span class="sale">{{product.sale}}</span>
+										<span class="category">{{product.category}}</span>
+										<h2>{{product.name}}</h2>
+										<p class="mb-0"><span class="price price-sale">$69.00</span> <span class="price">${{product.price}}</span></p>
+									</div>
+								</div>
+							</div>	
+			{% endfor %}
 
     		<div class="row mt-5">
           <div class="col-md-12 nav-link-wrap">
